@@ -1,11 +1,28 @@
-fnam = "words-13/words-13-data.txt"
 
-with open(fnam) as f:
-    words = [w.strip() for w in f.readlines()]
+from pythonds.graphs import Graph
 
-with open(fnam) as f:
-    for line in f.readlines():
-        start = line[0:5]
-        goal = line[6:11]
-        # ... sök väg från start till goal här
+fnam = "words-13/words-13-test.txt"
 
+def buildGraph(wordFile):
+    d = {}
+    g = Graph()
+    wfile = open(wordFile,'r')
+    # create buckets of words that differ by one letter
+    for line in wfile:
+        word = line[0:5]
+        for i in range(len(word)):
+            bucket = word[:i] + '_' + word[i+1:]
+            if bucket in d:
+                d[bucket].append(word)
+            else:
+                d[bucket] = [word]
+    # add vertices and edges for words in the same bucket
+    for bucket in d.keys():
+        for word1 in d[bucket]:
+            for word2 in d[bucket]:
+                if word1 != word2:
+                    g.addEdge(word1,word2)
+    return g
+
+g = buildGraph(fnam)
+print(g)

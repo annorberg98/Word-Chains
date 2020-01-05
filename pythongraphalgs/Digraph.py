@@ -4,7 +4,7 @@
 #
 # Jesper Larsson, Malmö University, 2018
 
-import Bag
+from . import Bag
 
 class Digraph:
     def __init__(self, V):
