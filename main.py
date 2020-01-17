@@ -19,12 +19,19 @@ def load_data(fileName):
 
 
 def load_test_file(filename):
-    with open(filename, 'r') as f:
+    with open(filename, "r") as f:
         words = f.readline().replace("\n", "").split(" ")
     
     return words
-def check_letter_criterias(word1, word2):
-    matches = []
+
+def check_letters(word1, word2):
+    '''
+    Controll if each of the 4 last letters in word 1 exists in word 2
+    and then add the matched letter to matches-list.
+    '''
+    if(word1 == word2):
+        return False
+    matches = [] 
     letters = word1[-4:]
     for char in letters:
         if char in word2:
@@ -37,21 +44,21 @@ def check_letter_criterias(word1, word2):
 def draw_graph(words):
     '''
     O(N^2)
+    
     '''
     G = nx.DiGraph()
     G.add_nodes_from(words)
 
     for word1 in words:
-        for word2 in words:
-            if word1 != word2: 
-                if(check_letter_criterias(word1, word2)):
+        for word2 in words: 
+            if(check_letters(word1, word2)):
                     G.add_edge(word1, word2)
     nx.draw_networkx(G)
     return G
 
 if __name__ == "__main__":
     datafile = "words-13/words-13-data.txt"   
-    testfile = 'words-13/words-13-test.txt'
+    testfile = "words-13/words-13-test.txt"
 
     words = load_data(datafile)
     G = draw_graph(words)   
