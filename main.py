@@ -1,15 +1,11 @@
+'''
+Grafens utrymmeskomplexitet: O(V + E)
+Bygga grafen tidskomplexitet: O(N^2)
+Sökning tidskomplexitet: O(V+E)
+'''
+
 import networkx as nx
 import matplotlib.pyplot as plt
-
-def check_letter_criterias(word1, word2):
-    matches = []
-    letters = word1[-4:]
-    for char in letters:
-        if char in word2:
-            matches.append(char)
-    
-    result =  all(elem in matches for elem in letters)
-    return result
 
 def load_data(fileName):
 
@@ -27,9 +23,21 @@ def load_test_file(filename):
         words = f.readline().replace("\n", "").split(" ")
     
     return words
-
+def check_letter_criterias(word1, word2):
+    matches = []
+    letters = word1[-4:]
+    for char in letters:
+        if char in word2:
+            matches.append(char)
+    
+    result =  all(elem in matches for elem in letters)
+    matches = None
+    return result
 
 def draw_graph(words):
+    '''
+    O(N^2)
+    '''
     G = nx.DiGraph()
     G.add_nodes_from(words)
 
@@ -40,7 +48,6 @@ def draw_graph(words):
                     G.add_edge(word1, word2)
     nx.draw_networkx(G)
     return G
-
 
 if __name__ == "__main__":
     datafile = "words-13/words-13-data.txt"   
