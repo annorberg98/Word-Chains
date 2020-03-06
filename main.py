@@ -8,6 +8,9 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 def load_data(fileName):
+    '''
+    Läser in data från fil.
+    '''
 
     file = open(fileName,"r")
     words = file.readlines()
@@ -19,6 +22,9 @@ def load_data(fileName):
 
 
 def load_test_file(filename):
+    '''
+    Läser in testfil
+    '''
     with open(filename, "r") as f:
         words = f.readline().replace("\n", "").split(" ")
     
@@ -57,8 +63,8 @@ def draw_graph(words):
     return G
 
 if __name__ == "__main__":
-    datafile = "words-13/words-13-data.txt"   
-    testfile = "words-13/words-13-test.txt"
+    datafile = "words-250/words-250-data.txt"   
+    testfile = "words-250/words-250-test.txt"
 
     words = load_data(datafile)
     G = draw_graph(words)   
@@ -70,12 +76,11 @@ if __name__ == "__main__":
 
             try:
                 result = nx.shortest_path(G, source=start, target=goal)
-                #print(result)
                 print(len(result)-1)
             except nx.NodeNotFound:
                 print("-1")
             except nx.exception.NetworkXNoPath:
                 print("-1")
 
-        #plt.show()
+        plt.show()
     
